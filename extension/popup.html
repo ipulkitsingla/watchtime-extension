@@ -1,18 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Watch Time Tracker</title>
-  <style>
-    body { font-family: Arial, sans-serif; padding: 10px; width: 300px; }
-    h3 { margin-top: 0; }
-    canvas { max-width: 100%; }
-  </style>
+  <meta charset="UTF-8" />
+  <title>WatchTime Dashboard</title>
+  <link rel="stylesheet" href="popup.css" />
 </head>
 <body>
-  <h3>Watch Time (Last 7 Days)</h3>
-  <canvas id="chart"></canvas>
-  <div id="details"></div>
-  <script src="chart.min.js"></script>
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('overview')">Overview</div>
+    <div class="tab" onclick="showTab('stats')">Statistics</div>
+  </div>
+
+  <!-- Overview -->
+  <div id="overview" class="tab-content active">
+    <h3>Overview</h3>
+    <table id="overviewTable">
+      <tr>
+        <th>Period</th>
+        <th>Videos</th>
+        <th>Watch Time</th>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Stats -->
+  <div id="stats" class="tab-content">
+    <h3>Watch Time (Last 7 Days)</h3>
+    <canvas id="watchChart"></canvas>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="popup.js"></script>
 </body>
 </html>

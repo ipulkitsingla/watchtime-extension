@@ -34,10 +34,34 @@ app.post("/api/watch", async (req, res) => {
 });
 
 // get stats
-app.get("/api/stats/:userId", async (req, res) => {
-  let stats = await Watch.find({ userId: req.params.userId });
-  res.json(stats);
+app.get('/api/stats/:userId', async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    const total = await Watch.aggregate([
+      { $match: { userId } },
+      {
+        $group: {
+          _id: null,
+          totalVideos: { $sum: "$videos" },
+          totalTime: { $sum: "$watchTime" }
+        }
+      }
+    ]);
+
+    const week = await Watch.find({ userId })
+      .sort({ date: -1 })
+      .limit(7);
+
+    res.json({
+      total: total[0] || { totalVideos: 0, totalTime: 0 },
+      week
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
