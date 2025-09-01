@@ -7,13 +7,15 @@ import Watch from "./models/Watch.js";
 dotenv.config();
 const app = express();
 app.use(express.json());
-app.use(cors());
 app.use(cors({
-  origin: "*",  // for testing, allow everything
+  origin: [
+    "chrome-extension://dbhmcmkklholdajfdeeppojnlemdalpc",  // your extension ID
+    "http://localhost:3000",
+    "http://127.0.0.1:3000"
+  ],
   methods: ["GET", "POST"],
   allowedHeaders: ["Content-Type"]
 }));
-
 // connect DB
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
