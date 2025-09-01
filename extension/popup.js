@@ -3,8 +3,8 @@ function formatMinutes(mins) {
 }
 
 async function loadData() {
-  let userId = "demoUser123"; // later replace with login-based user
-  let res = await fetch(`https://your-deployed-server.com/api/stats/${userId}`);
+  let userId = "pulkitxsingla"; // later replace with login-based user
+  let res = await fetch(`https://watchtime-extension.onrender.com/api/stats/${userId}`);
   let stats = await res.json();
 
   let byDate = {};
@@ -18,7 +18,7 @@ async function loadData() {
 
   let ctx = document.getElementById("chart");
   new Chart(ctx, {
-    type: "bar",
+    type: "bar",  
     data: {
       labels: days,
       datasets: [{ label: "Minutes Watched", data: totals }]

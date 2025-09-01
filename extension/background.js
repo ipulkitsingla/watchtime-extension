@@ -1,6 +1,6 @@
 async function sendToServer(userId, site, time) {
   try {
-    await fetch("https://your-deployed-server.com/api/watch", {
+    await fetch("https://watchtime-extension.onrender.com/api/watch", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ userId, site, time })
